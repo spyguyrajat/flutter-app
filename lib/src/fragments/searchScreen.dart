@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Favorites extends StatelessWidget {
+class SearchScreen extends StatelessWidget {
   Widget build(context) {
     return Center(
       child: Text(''),

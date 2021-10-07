@@ -1,5 +1,6 @@
 {
-  "helloWorld": "Hello World!",
+  "search": "Search",
+  "favorites": "Favorites",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   }

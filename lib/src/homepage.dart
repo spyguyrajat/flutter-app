@@ -1,29 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'fragments/favorites.dart';
-import 'fragments/search.dart';
+import 'fragments/favoritesScreen.dart';
+import 'fragments/searchScreen.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePageState createState() => MyHomePageState();
+class HomePage extends StatefulWidget {
+  HomePageState createState() => HomePageState();
 }
 
-class MyHomePageState extends State<MyHomePage> {
-  int index = 0;
-
-  void itemTap(int num) {
-    setState(() => index = num);
-  }
-
-  screens(int num) {
-    switch (num) {
-      case 0:
-        return Search();
-      case 1:
-        return Favorites();
-      default:
-        return Text('Error! Wrong Selection.');
-    }
-  }
+class HomePageState extends State<HomePage> {
+  int _index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,23 +18,38 @@ class MyHomePageState extends State<MyHomePage> {
         title: Text('Search'),
         backgroundColor: Colors.pink,
       ),
-      body: screens(index),
+      body: screens(_index),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.pink,
         selectedItemColor: Colors.white,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Search',
+            label: AppLocalizations.of(context).search,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: 'Favorites',
+            label: AppLocalizations.of(context).favorites,
           )
         ],
-        currentIndex: index,
-        onTap: itemTap,
+        currentIndex: _index,
+        onTap: _itemTap,
       ),
     );
+  }
+
+  screens(int num) {
+    switch (num) {
+      case 0:
+        return SearchScreen();
+      case 1:
+        return FavoritesScreen();
+      default:
+        return Text('Error! Wrong Selection.');
+    }
+  }
+
+  void _itemTap(int num) {
+    setState(() => _index = num);
   }
 }
