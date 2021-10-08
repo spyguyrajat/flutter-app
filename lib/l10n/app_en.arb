@@ -1,7 +1,5 @@
 {
-  "search": "Search",
-  "favorites": "Favorites",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  }
+  "searchTopBar": "Search",
+  "searchTab": "Search",
+  "favoritesTab": "Favorites"
 }

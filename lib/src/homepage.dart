@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'fragments/favoritesScreen.dart';
-import 'fragments/searchScreen.dart';
+import 'fragments/favoritesPage.dart';
+import 'fragments/searchPage.dart';
 
 class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
@@ -15,21 +15,21 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search'),
-        backgroundColor: Colors.pink,
+        title: Text(AppLocalizations.of(context).searchTopBar),
+        backgroundColor: Theme.of(context).backgroundColor,
       ),
       body: screens(_index),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.pink,
-        selectedItemColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: AppLocalizations.of(context).search,
+            label: AppLocalizations.of(context).searchTab,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
-            label: AppLocalizations.of(context).favorites,
+            label: AppLocalizations.of(context).favoritesTab,
           )
         ],
         currentIndex: _index,
@@ -38,12 +38,12 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  screens(int num) {
-    switch (num) {
+  screens(int index) {
+    switch (index) {
       case 0:
-        return SearchScreen();
+        return SearchPage();
       case 1:
-        return FavoritesScreen();
+        return FavoritesPage();
       default:
         return Text('Error! Wrong Selection.');
     }

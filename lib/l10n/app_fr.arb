@@ -1,4 +1,5 @@
 {
-  "search": "chercher",
-  "favorites": "favoris"
+  "searchTopBar": "chercher",
+  "searchTab": "chercher",
+  "favoritesTab": "favoris"
 }
