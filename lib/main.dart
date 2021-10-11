@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'src/homePage.dart';
+import 'src/homepage.dart';
 import 'src/theme/appTheme.dart';
 
 void main() {
