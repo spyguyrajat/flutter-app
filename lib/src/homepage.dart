@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'fragments/favoritesPage.dart';
-import 'fragments/searchPage.dart';
+import 'pages/favorites_page.dart';
+import 'pages/search_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int _index = 0;
 
-  List _pages = [
+  final List<Function> _pages = [
     () => SearchPage(),
     () => FavoritesPage(),
   ];
@@ -21,12 +21,14 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).appBarTitle),
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
       body: _pages[_index](),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).backgroundColor,
-        selectedItemColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        selectedItemColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
