@@ -49,7 +49,6 @@ class SearchPageState extends State<SearchPage> {
               ),
             )
           : Text('SEARCH'),
-      // ),
     );
   }
 

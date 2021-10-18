@@ -44,7 +44,7 @@ class AppTheme {
         backgroundColor: MaterialStateProperty.all<Color>(
           colorConstants._buttonBackgroundColor,
         ),
-      ), // buttonColor: colorConstants._buttonBackgroundColor,
+      ),
     ),
   );
 
@@ -66,7 +66,7 @@ class AppTheme {
         backgroundColor: MaterialStateProperty.all<Color>(
           colorConstants._buttonBackgroundColorDark,
         ),
-      ), // buttonColor: colorConstants._buttonBackgroundColor,
+      ),
     ),
   );
 }
