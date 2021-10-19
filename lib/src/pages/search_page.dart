@@ -69,7 +69,6 @@ class SearchPageState extends State<SearchPage> {
     setState(() => _searchButtonPress = false);
   }
 
-  static const  _elevatedButtonLoadingHeight =  20.0;
-  static const  _elevatedButtonLoadingWidth =  20.0;
+  static const _elevatedButtonLoadingHeight = 20.0;
+  static const _elevatedButtonLoadingWidth = 20.0;
 }
-

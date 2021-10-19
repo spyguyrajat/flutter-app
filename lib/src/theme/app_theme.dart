@@ -71,5 +71,3 @@ class AppTheme {
 
   static const Color searchButtonLoadingColor = Colors.white;
 }
-
-
