@@ -2,5 +2,6 @@
   "appBarTitle": "Search",
   "searchTabTitle": "Search",
   "favoritesTabTitle": "Favorites",
-  "searchButtonTitle": "Search"
+  "searchButtonTitle": "Search",
+  "searchTextFieldTitle": "Search Flickr…"
 }

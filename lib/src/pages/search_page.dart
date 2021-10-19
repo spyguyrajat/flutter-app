@@ -14,28 +14,32 @@ class SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(context) {
+    return _getBody();
+  }
+
+  Widget _getBody() {
     return Container(
       margin: EdgeInsets.all(20.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          searchTextFormField(),
-          Container(margin: EdgeInsets.only(bottom: 20.0)),
-          searchButton(),
+          _searchTextField(),
+          SizedBox(height: 20.0),
+          _searchButton(),
         ],
       ),
     );
   }
 
-  Widget searchTextFormField() {
-    return TextFormField(
+  Widget _searchTextField() {
+    return TextField(
       decoration: InputDecoration(
-        labelText: 'Search Flickr...',
+        labelText: AppLocalizations.of(context).searchTextFieldTitle,
       ),
     );
   }
 
-  Widget searchButton() {
+  Widget _searchButton() {
     return ElevatedButton(
       style: ButtonStyle(
         backgroundColor:
@@ -44,10 +48,10 @@ class SearchPageState extends State<SearchPage> {
       onPressed: _onLoading,
       child: _searchButtonPress
           ? SizedBox(
-              height: 20,
-              width: 20,
+              height: _elevatedButtonLoadingHeight,
+              width: _elevatedButtonLoadingWidth,
               child: CircularProgressIndicator(
-                color: ColorConstants().searchButtonLoadingColor,
+                color: AppTheme.searchButtonLoadingColor,
               ),
             )
           : Text(AppLocalizations.of(context).searchButtonTitle),
@@ -57,11 +61,15 @@ class SearchPageState extends State<SearchPage> {
   void _onLoading() {
     setState(() {
       _searchButtonPress = true;
-      new Future.delayed(new Duration(seconds: 2), searchResultPage);
+      new Future.delayed(new Duration(seconds: 2), _searchResultPage);
     });
   }
 
-  Future searchResultPage() async {
+  Future _searchResultPage() async {
     setState(() => _searchButtonPress = false);
   }
+
+  static const  _elevatedButtonLoadingHeight =  20.0;
+  static const  _elevatedButtonLoadingWidth =  20.0;
 }
+

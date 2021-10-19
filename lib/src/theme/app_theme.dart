@@ -7,7 +7,6 @@ class ColorConstants {
   final Color _appBarBackgroundColor = Color.fromRGBO(243, 56, 121, 1);
   final Color _primaryColor = Color.fromRGBO(243, 56, 121, 1);
   final Color _buttonBackgroundColor = Color.fromRGBO(0, 213, 127, 1);
-  final Color searchButtonLoadingColor = Colors.white;
   final Color _bottomNavigationBarBackgroundColor =
       Color.fromRGBO(243, 56, 121, 1);
   final Color _bottomNavigationBarSelectedItemColor =
@@ -69,4 +68,8 @@ class AppTheme {
       ),
     ),
   );
+
+  static const Color searchButtonLoadingColor = Colors.white;
 }
+
+
