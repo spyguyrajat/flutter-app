@@ -1,5 +1,6 @@
 {
   "appBarTitle": "Search",
   "searchTabTitle": "Search",
-  "favoritesTabTitle": "Favorites"
+  "favoritesTabTitle": "Favorites",
+  "searchButtonTitle": "Search"
 }

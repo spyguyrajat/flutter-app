@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../theme/app_theme.dart';
 
@@ -11,6 +12,7 @@ class SearchPage extends StatefulWidget {
 class SearchPageState extends State<SearchPage> {
   bool _searchButtonPress = false;
 
+  @override
   Widget build(context) {
     return Container(
       margin: EdgeInsets.all(20.0),
@@ -48,7 +50,7 @@ class SearchPageState extends State<SearchPage> {
                 color: ColorConstants().searchButtonLoadingColor,
               ),
             )
-          : Text('SEARCH'),
+          : Text(AppLocalizations.of(context).searchButtonTitle),
     );
   }
 
