@@ -1,3 +1,5 @@
 {
-  "helloWorld": "Bonjour le monde!"
+  "appBarTitle": "chercher",
+  "searchTabTitle": "chercher",
+  "favoritesTabTitle": "favoris"
 }
