@@ -38,7 +38,9 @@ class SearchPageState extends State<SearchPage> {
       controller: _text,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context).searchTextFieldTitle,
-        errorText: _validate ? 'Please enter 3 or more characters!' : null,
+        errorText: _validate
+            ? AppLocalizations.of(context).searchValidationError
+            : null,
       ),
     );
   }

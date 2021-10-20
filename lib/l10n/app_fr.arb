@@ -3,5 +3,6 @@
   "searchTabTitle": "chercher",
   "favoritesTabTitle": "favoris",
   "searchButtonTitle": "chercher",
-  "searchTextFieldTitle": "Rechercher sur Flickr…"
+  "searchTextFieldTitle": "Rechercher sur Flickr…",
+  "searchValidationError": "Veuillez saisir 3 caractères ou plus !"
 }
