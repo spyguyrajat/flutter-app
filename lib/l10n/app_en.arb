@@ -4,5 +4,6 @@
   "favoritesTabTitle": "Favorites",
   "searchButtonTitle": "Search",
   "searchTextFieldTitle": "Search Flickr…",
-  "searchValidationError": "Please enter 3 or more characters!"
+  "searchValidationError": "Please enter 3 or more characters!",
+  "okButtonText": "OK"
 }

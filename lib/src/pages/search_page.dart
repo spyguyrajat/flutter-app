@@ -38,9 +38,6 @@ class SearchPageState extends State<SearchPage> {
       controller: _text,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context).searchTextFieldTitle,
-        errorText: _validate
-            ? AppLocalizations.of(context).searchValidationError
-            : null,
       ),
     );
   }
@@ -51,14 +48,7 @@ class SearchPageState extends State<SearchPage> {
         backgroundColor:
             Theme.of(context).elevatedButtonTheme.style.backgroundColor,
       ),
-      onPressed: () {
-        setState(() {
-          _text.text.length < 3 ? _validate = true : _validate = false;
-        });
-        if (_validate == false) {
-          return _onLoading();
-        }
-      },
+      onPressed: _onPress,
       child: _searchButtonPress
           ? SizedBox(
               height: _elevatedButtonLoadingHeight,
@@ -68,6 +58,32 @@ class SearchPageState extends State<SearchPage> {
               ),
             )
           : Text(AppLocalizations.of(context).searchButtonTitle),
+    );
+  }
+
+  void _onPress() {
+    setState(() {
+      _text.text.length < 3 ? _validate = true : _validate = false;
+    });
+    _validate ? _showDialog() : _onLoading();
+  }
+
+  Future _showDialog() async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(AppLocalizations.of(context).searchValidationError),
+          actions: [
+            TextButton(
+              child: Text(AppLocalizations.of(context).okButtonText),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 

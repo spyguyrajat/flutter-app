@@ -4,5 +4,6 @@
   "favoritesTabTitle": "favoris",
   "searchButtonTitle": "chercher",
   "searchTextFieldTitle": "Rechercher sur Flickr…",
-  "searchValidationError": "Veuillez saisir 3 caractères ou plus !"
+  "searchValidationError": "Veuillez saisir 3 caractères ou plus !",
+  "okButtonText": "d'accord"
 }
