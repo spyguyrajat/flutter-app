@@ -11,6 +11,8 @@ class SearchPage extends StatefulWidget {
 
 class SearchPageState extends State<SearchPage> {
   bool _searchButtonPress = false;
+  bool _validate = false;
+  final _text = TextEditingController();
 
   @override
   Widget build(context) {
@@ -33,8 +35,10 @@ class SearchPageState extends State<SearchPage> {
 
   Widget _searchTextField() {
     return TextField(
+      controller: _text,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context).searchTextFieldTitle,
+        errorText: _validate ? 'Please enter 3 or more characters!' : null,
       ),
     );
   }
@@ -45,7 +49,14 @@ class SearchPageState extends State<SearchPage> {
         backgroundColor:
             Theme.of(context).elevatedButtonTheme.style.backgroundColor,
       ),
-      onPressed: _onLoading,
+      onPressed: () {
+        setState(() {
+          _text.text.length < 3 ? _validate = true : _validate = false;
+        });
+        if (_validate == false) {
+          return _onLoading();
+        }
+      },
       child: _searchButtonPress
           ? SizedBox(
               height: _elevatedButtonLoadingHeight,
