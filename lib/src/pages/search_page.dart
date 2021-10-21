@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_template/src/pages/search_result_page.dart';
 
 import '../theme/app_theme.dart';
 
@@ -13,6 +14,7 @@ class SearchPageState extends State<SearchPage> {
   bool _searchButtonPress = false;
   bool _validate = false;
   final _text = TextEditingController();
+  String searchValue;
 
   @override
   Widget build(context) {
@@ -35,6 +37,11 @@ class SearchPageState extends State<SearchPage> {
 
   Widget _searchTextField() {
     return TextField(
+      onSubmitted: (value) {
+        setState(() {
+          searchValue = value;
+        });
+      },
       controller: _text,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context).searchTextFieldTitle,
@@ -90,12 +97,13 @@ class SearchPageState extends State<SearchPage> {
   void _onLoading() {
     setState(() {
       _searchButtonPress = true;
-      new Future.delayed(new Duration(seconds: 2), _searchResultPage);
+      Future.delayed(Duration(seconds: 2), () {
+        setState(() => _searchButtonPress = false);
+        SetSearchResultsPage.setValue(_text.text).searchResultPage();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => SearchResultsPage()));
+      });
     });
-  }
-
-  Future _searchResultPage() async {
-    setState(() => _searchButtonPress = false);
   }
 
   static const _elevatedButtonLoadingHeight = 20.0;
