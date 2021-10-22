@@ -11,7 +11,7 @@ class SearchPage extends StatefulWidget {
 
 class SearchPageState extends State<SearchPage> {
   bool _searchButtonPress = false;
-  bool _validate = false;
+  int _validate = 0;
   final _text = TextEditingController();
 
   @override
@@ -63,12 +63,47 @@ class SearchPageState extends State<SearchPage> {
 
   void _onPress() {
     setState(() {
-      _text.text.length < 3 ? _validate = true : _validate = false;
+      if (_text.text.isEmpty) {
+        _validate = 0;
+      } else if (_text.text.length < 3) {
+        _validate = 1;
+      } else {
+        _validate = 2;
+      }
     });
-    _validate ? _showDialog() : _onLoading();
+
+    switch (_validate) {
+      case 0:
+        _emptyStringErrorDialog();
+        break;
+      case 1:
+        _searchValidationErrorDialog();
+        break;
+      case 2:
+        _onLoading();
+    }
   }
 
-  Future _showDialog() async {
+  Future _emptyStringErrorDialog() async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(AppLocalizations.of(context).emptyStringError),
+          actions: [
+            TextButton(
+              child: Text(AppLocalizations.of(context).okButtonText),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future _searchValidationErrorDialog() async {
     return showDialog(
       context: context,
       builder: (context) {

@@ -5,5 +5,6 @@
   "searchButtonTitle": "ಹುಡುಕಿ",
   "searchTextFieldTitle": "ಫ್ಲಿಕರ್ ಹುಡುಕಿ ...",
   "searchValidationError": "ದಯವಿಟ್ಟು 3 ಅಥವಾ ಹೆಚ್ಚಿನ ಅಕ್ಷರಗಳನ್ನು ನಮೂದಿಸಿ!",
-  "okButtonText" : "ಸರಿ"
+  "okButtonText" : "ಸರಿ,",
+  "emptyStringError": "ಯಾವುದೇ ಪಠ್ಯವನ್ನು ನಮೂದಿಸಿಲ್ಲ"
 }
