@@ -99,9 +99,9 @@ class SearchPageState extends State<SearchPage> {
       _searchButtonPress = true;
       Future.delayed(Duration(seconds: 2), () {
         setState(() => _searchButtonPress = false);
-        SetSearchResultsPage.setValue(_text.text).searchResultPage();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => SearchResultsPage()));
+        SearchResultsPage(_text.text);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => SearchResultsPage(_text.text)));
       });
     });
   }

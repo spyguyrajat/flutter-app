@@ -8,54 +8,53 @@ import '../models/image_model.dart';
 import 'favorites_page.dart';
 import 'search_page.dart';
 
-class SetSearchResultsPage {
-  String searchTerm = 'dummy';
-  SetSearchResultsPage();
-
-  SetSearchResultsPage.setValue(this.searchTerm);
-
-  searchResultPage() async {
-    var response = await get(
-      Uri.parse(
-        'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=6b6afbc32887639b60f16f4f0cb3d83a&format=json&text=' +
-            searchTerm +
-            '&nojsoncallback=1',
-      ),
-    );
-    print(searchTerm);
-    var imageModel = ImageModel.fromJson(json.decode(response.body));
-    List fetchImage = imageModel.images;
-    print(fetchImage.length);
-  }
-}
-
 class SearchResultsPage extends StatefulWidget {
+  final String searchWord;
+  SearchResultsPage(this.searchWord);
+
   SearchResultsPageState createState() => SearchResultsPageState();
 }
 
 class SearchResultsPageState extends State<SearchResultsPage> {
   int _index = 0;
+  List fetchImage;
 
   final List<Function> _pages = [
     () => SearchPage(),
     () => FavoritesPage(),
   ];
 
-  String get searchTerm => SetSearchResultsPage().searchTerm;
+  void initState() {
+    super.initState();
+    searchResultPage();
+  }
+
+  searchResultPage() async {
+    var response = await get(
+      Uri.parse(
+        'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=6b6afbc32887639b60f16f4f0cb3d83a&format=json&text=' +
+            widget.searchWord +
+            '&nojsoncallback=1',
+      ),
+    );
+    // print(widget.searchWord);
+    var imageModel = ImageModel.fromJson(json.decode(response.body));
+
+    setState(() {
+      fetchImage = imageModel.images;
+    });
+
+    // print(fetchImage.length);
+  }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text('Search for: ' + searchTerm),
+        title: Text('Results for: ' + '\"' + widget.searchWord + '\"'),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
-      body: (_index == 1)
-          ? _pages[_index]()
-          : new Center(
-              child: new Text("SECOND VIEW"),
-            ),
-      // body: ImageList(imageModel),
+      body: ImageList(fetchImage),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor:
             Theme.of(context).bottomNavigationBarTheme.backgroundColor,
@@ -79,5 +78,28 @@ class SearchResultsPageState extends State<SearchResultsPage> {
 
   void _itemTap(int num) {
     setState(() => _index = num);
+  }
+}
+
+class ImageList extends StatelessWidget {
+  final List imagesList;
+
+  ImageList(this.imagesList);
+
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      itemCount: imagesList.length,
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+      itemBuilder: (context, int index) {
+        return buildImage(imagesList[index]);
+      },
+    );
+  }
+
+  Widget buildImage(image) {
+    return Container(
+      child: Image.network(image),
+    );
   }
 }
