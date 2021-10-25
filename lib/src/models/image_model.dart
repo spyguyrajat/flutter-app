@@ -4,7 +4,7 @@ class ImageModel {
   String secret;
   List images = [];
 
-  ImageModel(this.server, this.id, this.secret);
+  ImageModel();
 
   ImageModel.fromJson(Map<String, dynamic> parsedJson) {
     List value = parsedJson['photos']['photo'];
@@ -22,5 +22,9 @@ class ImageModel {
       // print(imageUrl);
       images.add(imageUrl);
     }
+  }
+
+  List getList() {
+    return images;
   }
 }

@@ -1,51 +1,24 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:http/http.dart';
 
-import '../models/image_model.dart';
 import 'favorites_page.dart';
 import 'search_page.dart';
 
 class SearchResultsPage extends StatefulWidget {
+  final List fetchImage;
   final String searchWord;
-  SearchResultsPage(this.searchWord);
+  SearchResultsPage(this.searchWord, this.fetchImage);
 
   SearchResultsPageState createState() => SearchResultsPageState();
 }
 
 class SearchResultsPageState extends State<SearchResultsPage> {
   int _index = 0;
-  List fetchImage;
 
   final List<Function> _pages = [
     () => SearchPage(),
     () => FavoritesPage(),
   ];
-
-  void initState() {
-    super.initState();
-    searchResultPage();
-  }
-
-  searchResultPage() async {
-    var response = await get(
-      Uri.parse(
-        'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=6b6afbc32887639b60f16f4f0cb3d83a&format=json&text=' +
-            widget.searchWord +
-            '&nojsoncallback=1',
-      ),
-    );
-    // print(widget.searchWord);
-    var imageModel = ImageModel.fromJson(json.decode(response.body));
-
-    setState(() {
-      fetchImage = imageModel.images;
-    });
-
-    // print(fetchImage.length);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +27,7 @@ class SearchResultsPageState extends State<SearchResultsPage> {
         title: Text('Results for: ' + '\"' + widget.searchWord + '\"'),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
-      body: ImageList(fetchImage),
+      body: ImageList(widget.fetchImage),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor:
             Theme.of(context).bottomNavigationBarTheme.backgroundColor,

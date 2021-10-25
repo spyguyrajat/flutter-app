@@ -5,5 +5,6 @@
   "searchButtonTitle": "chercher",
   "searchTextFieldTitle": "Rechercher sur Flickr…",
   "searchValidationError": "Veuillez saisir 3 caractères ou plus !",
-  "okButtonText": "d'accord"
+  "okButtonText": "d'accord",
+  "emptyStringError": "Aucun texte saisi"
 }

@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_template/src/pages/search_result_page.dart';
+import 'package:http/http.dart';
 
+import '../models/image_model.dart';
 import '../theme/app_theme.dart';
 
 class SearchPage extends StatefulWidget {
@@ -12,9 +15,7 @@ class SearchPage extends StatefulWidget {
 
 class SearchPageState extends State<SearchPage> {
   bool _searchButtonPress = false;
-  bool _validate = false;
   final _text = TextEditingController();
-  String searchValue;
 
   @override
   Widget build(context) {
@@ -37,11 +38,6 @@ class SearchPageState extends State<SearchPage> {
 
   Widget _searchTextField() {
     return TextField(
-      onSubmitted: (value) {
-        setState(() {
-          searchValue = value;
-        });
-      },
       controller: _text,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context).searchTextFieldTitle,
@@ -69,18 +65,21 @@ class SearchPageState extends State<SearchPage> {
   }
 
   void _onPress() {
-    setState(() {
-      _text.text.length < 3 ? _validate = true : _validate = false;
-    });
-    _validate ? _showDialog() : _onLoading();
+    if (_text.text.isEmpty) {
+      _errorDialog(AppLocalizations.of(context).emptyStringError);
+    } else if (_text.text.length < 3) {
+      _errorDialog(AppLocalizations.of(context).searchValidationError);
+    } else {
+      _onLoading(_text.text);
+    }
   }
 
-  Future _showDialog() async {
+  Future _errorDialog(errorMessage) async {
     return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: Text(AppLocalizations.of(context).searchValidationError),
+          content: Text(errorMessage),
           actions: [
             TextButton(
               child: Text(AppLocalizations.of(context).okButtonText),
@@ -94,16 +93,30 @@ class SearchPageState extends State<SearchPage> {
     );
   }
 
-  void _onLoading() {
+  void _onLoading(String inputString) {
     setState(() {
       _searchButtonPress = true;
-      Future.delayed(Duration(seconds: 2), () {
-        setState(() => _searchButtonPress = false);
-        SearchResultsPage(_text.text);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => SearchResultsPage(_text.text)));
-      });
     });
+
+    Future searchResultPage() async {
+      var response = await get(
+        Uri.parse(
+          'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=6b6afbc32887639b60f16f4f0cb3d83a&format=json&text=' +
+              inputString +
+              '&nojsoncallback=1',
+        ),
+      );
+      var imageModel = ImageModel.fromJson(json.decode(response.body));
+      var imagesList = imageModel.getList();
+
+      setState(() => _searchButtonPress = false);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (_) => SearchResultsPage(inputString, imagesList)));
+    }
+
+    searchResultPage();
   }
 
   static const _elevatedButtonLoadingHeight = 20.0;
