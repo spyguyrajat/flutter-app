@@ -11,6 +11,7 @@ class SearchPage extends StatefulWidget {
 
 class SearchPageState extends State<SearchPage> {
   bool _searchButtonPress = false;
+  final _text = TextEditingController();
 
   @override
   Widget build(context) {
@@ -33,6 +34,7 @@ class SearchPageState extends State<SearchPage> {
 
   Widget _searchTextField() {
     return TextField(
+      controller: _text,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context).searchTextFieldTitle,
       ),
@@ -45,7 +47,7 @@ class SearchPageState extends State<SearchPage> {
         backgroundColor:
             Theme.of(context).elevatedButtonTheme.style.backgroundColor,
       ),
-      onPressed: _onLoading,
+      onPressed: _onPress,
       child: _searchButtonPress
           ? SizedBox(
               height: _elevatedButtonLoadingHeight,
@@ -55,6 +57,35 @@ class SearchPageState extends State<SearchPage> {
               ),
             )
           : Text(AppLocalizations.of(context).searchButtonTitle),
+    );
+  }
+
+  void _onPress() {
+    if (_text.text.isEmpty) {
+      _showErrorDialog(AppLocalizations.of(context).emptyStringError);
+    } else if (_text.text.length < 3) {
+      _showErrorDialog(AppLocalizations.of(context).searchValidationError);
+    } else {
+      _onLoading();
+    }
+  }
+
+  Future _showErrorDialog(errorMessage) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              child: Text(AppLocalizations.of(context).okButtonText),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
