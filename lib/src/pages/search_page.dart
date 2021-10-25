@@ -65,61 +65,41 @@ class SearchPageState extends State<SearchPage> {
     setState(() {
       if (_text.text.isEmpty) {
         _validate = 0;
+        _errorDialog();
       } else if (_text.text.length < 3) {
         _validate = 1;
+        _errorDialog();
       } else {
         _validate = 2;
+        _onLoading();
       }
     });
+  }
 
-    switch (_validate) {
-      case 0:
-        _emptyStringErrorDialog();
-        break;
-      case 1:
-        _searchValidationErrorDialog();
-        break;
-      case 2:
-        _onLoading();
+  Future _errorDialog() async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: _errorString(),
+          actions: [
+            TextButton(
+              child: Text(AppLocalizations.of(context).okButtonText),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _errorString() {
+    if (_validate == 0) {
+      return Text(AppLocalizations.of(context).emptyStringError);
     }
-  }
-
-  Future _emptyStringErrorDialog() async {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Text(AppLocalizations.of(context).emptyStringError),
-          actions: [
-            TextButton(
-              child: Text(AppLocalizations.of(context).okButtonText),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future _searchValidationErrorDialog() async {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Text(AppLocalizations.of(context).searchValidationError),
-          actions: [
-            TextButton(
-              child: Text(AppLocalizations.of(context).okButtonText),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    return Text(AppLocalizations.of(context).searchValidationError);
   }
 
   void _onLoading() {
