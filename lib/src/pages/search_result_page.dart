@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../models/image_list.dart';
 import 'favorites_page.dart';
 import 'search_page.dart';
 
@@ -27,7 +28,8 @@ class SearchResultsPageState extends State<SearchResultsPage> {
         title: Text('Results for: ' + '\"' + widget.searchWord + '\"'),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
-      body: ImageList(widget.fetchImage),
+      body: (_index == 1) ? _pages[_index]() : ImageList(widget.fetchImage),
+      // body: ImageList(widget.fetchImage),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor:
             Theme.of(context).bottomNavigationBarTheme.backgroundColor,
@@ -51,28 +53,5 @@ class SearchResultsPageState extends State<SearchResultsPage> {
 
   void _itemTap(int num) {
     setState(() => _index = num);
-  }
-}
-
-class ImageList extends StatelessWidget {
-  final List imagesList;
-
-  ImageList(this.imagesList);
-
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      itemCount: imagesList.length,
-      gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-      itemBuilder: (context, int index) {
-        return buildImage(imagesList[index]);
-      },
-    );
-  }
-
-  Widget buildImage(image) {
-    return Container(
-      child: Image.network(image),
-    );
   }
 }

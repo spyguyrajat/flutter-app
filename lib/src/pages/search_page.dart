@@ -99,21 +99,25 @@ class SearchPageState extends State<SearchPage> {
     });
 
     Future searchResultPage() async {
-      var response = await get(
-        Uri.parse(
-          'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=6b6afbc32887639b60f16f4f0cb3d83a&format=json&text=' +
-              inputString +
-              '&nojsoncallback=1',
-        ),
-      );
-      var imageModel = ImageModel.fromJson(json.decode(response.body));
-      var imagesList = imageModel.getList();
+      try {
+        var response = await get(
+          Uri.parse(
+            'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=6b6afbc32887639b60f16f4f0cb3d83a&format=json&text=' +
+                inputString +
+                '&nojsoncallback=1',
+          ),
+        );
+        var imageModel = ImageModel.fromJson(json.decode(response.body));
+        var imagesList = imageModel.getList();
 
-      setState(() => _searchButtonPress = false);
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (_) => SearchResultsPage(inputString, imagesList)));
+        setState(() => _searchButtonPress = false);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => SearchResultsPage(inputString, imagesList)));
+      } catch (e) {
+        print(e);
+      }
     }
 
     searchResultPage();
