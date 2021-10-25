@@ -12,8 +12,6 @@ class SearchPage extends StatefulWidget {
 class SearchPageState extends State<SearchPage> {
   bool _searchButtonPress = false;
   final _text = TextEditingController();
-  String _textEmptyError = 'textEmptyError';
-  String _textValidationError = 'textValidationError';
 
   @override
   Widget build(context) {
