@@ -62,15 +62,15 @@ class SearchPageState extends State<SearchPage> {
 
   void _onPress() {
     if (_text.text.isEmpty) {
-      _errorDialog(AppLocalizations.of(context).emptyStringError);
+      _showErrorDialog(AppLocalizations.of(context).emptyStringError);
     } else if (_text.text.length < 3) {
-      _errorDialog(AppLocalizations.of(context).searchValidationError);
+      _showErrorDialog(AppLocalizations.of(context).searchValidationError);
     } else {
       _onLoading();
     }
   }
 
-  Future _errorDialog(errorMessage) async {
+  Future _showErrorDialog(errorMessage) async {
     return showDialog(
       context: context,
       builder: (context) {
