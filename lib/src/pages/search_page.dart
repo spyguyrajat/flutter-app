@@ -11,8 +11,9 @@ class SearchPage extends StatefulWidget {
 
 class SearchPageState extends State<SearchPage> {
   bool _searchButtonPress = false;
-  int _validate = 0;
   final _text = TextEditingController();
+  String _textEmptyError = 'textEmptyError';
+  String _textValidationError = 'textValidationError';
 
   @override
   Widget build(context) {
@@ -62,26 +63,23 @@ class SearchPageState extends State<SearchPage> {
   }
 
   void _onPress() {
-    setState(() {
-      if (_text.text.isEmpty) {
-        _validate = 0;
-        _errorDialog();
-      } else if (_text.text.length < 3) {
-        _validate = 1;
-        _errorDialog();
-      } else {
-        _validate = 2;
-        _onLoading();
-      }
-    });
+    if (_text.text.isEmpty) {
+      _errorDialog(_textEmptyError);
+    } else if (_text.text.length < 3) {
+      _errorDialog(_textValidationError);
+    } else {
+      _onLoading();
+    }
   }
 
-  Future _errorDialog() async {
+  Future _errorDialog(errorMessage) async {
     return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: _errorString(),
+          content: (errorMessage == 'textEmptyError')
+              ? Text(AppLocalizations.of(context).emptyStringError)
+              : Text(AppLocalizations.of(context).searchValidationError),
           actions: [
             TextButton(
               child: Text(AppLocalizations.of(context).okButtonText),
@@ -93,13 +91,6 @@ class SearchPageState extends State<SearchPage> {
         );
       },
     );
-  }
-
-  Widget _errorString() {
-    if (_validate == 0) {
-      return Text(AppLocalizations.of(context).emptyStringError);
-    }
-    return Text(AppLocalizations.of(context).searchValidationError);
   }
 
   void _onLoading() {
