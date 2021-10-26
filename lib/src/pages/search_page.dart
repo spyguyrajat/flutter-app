@@ -98,7 +98,7 @@ class SearchPageState extends State<SearchPage> {
       _searchButtonPress = true;
     });
 
-    Future searchResultPage() async {
+    Future searchResultsFunction() async {
       try {
         var response = await get(
           Uri.parse(
@@ -107,20 +107,20 @@ class SearchPageState extends State<SearchPage> {
                 '&nojsoncallback=1',
           ),
         );
-        var imageModel = ImageModel.fromJson(json.decode(response.body));
-        var imagesList = imageModel.getList();
+        ImageModel imageModel = ImageModel.fromJson(json.decode(response.body));
+        List _imagesList = imageModel.getList();
 
         setState(() => _searchButtonPress = false);
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (_) => SearchResultsPage(inputString, imagesList)));
-      } catch (e) {
-        print(e);
+                builder: (_) => SearchResultsPage(inputString, _imagesList)));
+      } catch (errorLog) {
+        print(errorLog);
       }
     }
 
-    searchResultPage();
+    searchResultsFunction();
   }
 
   static const _elevatedButtonLoadingHeight = 20.0;

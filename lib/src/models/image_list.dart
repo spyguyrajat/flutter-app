@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ImageList extends StatelessWidget {
-  final List imagesList;
+  final List _imagesList;
 
-  ImageList(this.imagesList);
+  ImageList(this._imagesList);
 
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: imagesList.length,
+      itemCount: _imagesList.length,
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
       itemBuilder: (context, int index) {
-        return buildImage(imagesList[index]);
+        return buildImage(_imagesList[index]);
       },
     );
   }
 
-  Widget buildImage(image) {
+  Widget buildImage(imageUrl) {
     return Container(
-      child: Image.network(image),
+      child: Image.network(imageUrl),
     );
   }
 }

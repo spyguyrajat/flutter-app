@@ -1,30 +1,29 @@
 class ImageModel {
-  String server;
-  String id;
-  String secret;
-  List images = [];
+  String _server;
+  String _id;
+  String _secret;
+  List _imagesList = [];
 
   ImageModel();
 
   ImageModel.fromJson(Map<String, dynamic> parsedJson) {
     List value = parsedJson['photos']['photo'];
     for (var i in value) {
-      server = i['server'];
-      id = i['id'];
-      secret = i['secret'];
+      _server = i['server'];
+      _id = i['id'];
+      _secret = i['secret'];
       var imageUrl = 'https://live.staticflickr.com/' +
-          server +
+          _server +
           '/' +
-          id +
+          _id +
           '_' +
-          secret +
+          _secret +
           '.jpg';
-      // print(imageUrl);
-      images.add(imageUrl);
+      _imagesList.add(imageUrl);
     }
   }
 
   List getList() {
-    return images;
+    return _imagesList;
   }
 }

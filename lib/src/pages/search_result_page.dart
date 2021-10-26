@@ -6,9 +6,9 @@ import 'favorites_page.dart';
 import 'search_page.dart';
 
 class SearchResultsPage extends StatefulWidget {
-  final List fetchImage;
-  final String searchWord;
-  SearchResultsPage(this.searchWord, this.fetchImage);
+  final List _imagesList;
+  final String _inputString;
+  SearchResultsPage(this._inputString, this._imagesList);
 
   SearchResultsPageState createState() => SearchResultsPageState();
 }
@@ -25,11 +25,10 @@ class SearchResultsPageState extends State<SearchResultsPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text('Results for: ' + '\"' + widget.searchWord + '\"'),
+        title: Text('Results for: ' + '\"' + widget._inputString + '\"'),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
-      body: (_index == 1) ? _pages[_index]() : ImageList(widget.fetchImage),
-      // body: ImageList(widget.fetchImage),
+      body: (_index == 1) ? _pages[_index]() : ImageList(widget._imagesList),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor:
             Theme.of(context).bottomNavigationBarTheme.backgroundColor,
