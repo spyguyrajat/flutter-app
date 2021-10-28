@@ -28,18 +28,10 @@ class FlickrSearchApiCall {
         List<dynamic> photoList = responseBody['photos']['photo'];
 
         photoList.forEach((element) {
-          // print(element);
           flickrSearchPhotos.add(ImageModel.fromJson(element).makeUrl());
         });
 
         return flickrSearchPhotos;
-
-        // setState(() => _searchButtonPress = false);
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (_) =>
-        //             SearchResultsPage(inputString, flickrSearchPhotos)));
       } catch (e) {
         debugPrint(e);
       }
@@ -56,14 +48,3 @@ class FlickrSearchApiCall {
     }
   }
 }
-
-//
-// ImageModel imageModel = ImageModel.fromJson(parsedJson);
-// List _imagesList = imageModel.getList();
-// // debugPrint(_imagesList.toString());
-//
-// Navigator.push(
-// context,
-// MaterialPageRoute(
-// builder: (_) => SearchResultsPage(inputString, _imagesList)));
-//

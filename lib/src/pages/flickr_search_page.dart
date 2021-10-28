@@ -15,6 +15,7 @@ class FlickrSearchPageState extends State<FlickrSearchPage> {
   bool _searchButtonPress = false;
   final _text = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
@@ -96,13 +97,13 @@ class FlickrSearchPageState extends State<FlickrSearchPage> {
     );
   }
 
-  void _onLoading(String inputString) {
+  void _onLoading(String inputString) async {
     setState(() {
       _searchButtonPress = true;
     });
 
     List<dynamic> flickrSearchPhotos =
-        FlickrSearchApiCall().searchResultsFunction(inputString);
+        await FlickrSearchApiCall().searchResultsFunction(inputString);
 
     setState(() => _searchButtonPress = false);
     Navigator.push(

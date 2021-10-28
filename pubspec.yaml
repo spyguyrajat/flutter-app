@@ -11,8 +11,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
-  http: any
   persistent_bottom_nav_bar: any
+  http: any
 
 dev_dependencies:
   flutter_test:
