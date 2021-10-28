@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_template/src/pages/favorites_page.dart';
-import 'package:flutter_template/src/pages/flickr_search_page.dart';
 
 import 'src/homepage.dart';
 import 'src/theme/app_theme.dart';
@@ -20,11 +18,6 @@ class App extends StatelessWidget {
       darkTheme: AppTheme().darkThemeData,
       themeMode: ThemeMode.system,
       home: HomePage(),
-      initialRoute: '/',
-      routes: {
-        '/first': (context) => FlickrSearchPage(),
-        '/second': (context) => FavoritesPage(),
-      },
     );
   }
 }

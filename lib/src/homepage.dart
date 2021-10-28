@@ -31,8 +31,8 @@ class HomePageState extends State<HomePage> {
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
           initialRoute: '/',
           routes: {
-            '/first': (context) => FlickrSearchPage(),
-            '/second': (context) => FavoritesPage(),
+            '/search': (context) => FlickrSearchPage(),
+            '/favorites': (context) => FavoritesPage(),
           },
         ),
       ),
@@ -46,8 +46,8 @@ class HomePageState extends State<HomePage> {
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
           initialRoute: '/',
           routes: {
-            '/first': (context) => FlickrSearchPage(),
-            '/second': (context) => FavoritesPage(),
+            '/search': (context) => FlickrSearchPage(),
+            '/favorites': (context) => FavoritesPage(),
           },
         ),
       ),
