@@ -5,7 +5,9 @@ import '../models/image_grid_view.dart';
 class SearchResultsPage extends StatefulWidget {
   final List _imagesList;
   final String _inputString;
-  SearchResultsPage(this._inputString, this._imagesList);
+  SearchResultsPage(String inputString, List imagesList)
+      : _imagesList = imagesList,
+        _inputString = inputString;
 
   SearchResultsPageState createState() => SearchResultsPageState();
 }

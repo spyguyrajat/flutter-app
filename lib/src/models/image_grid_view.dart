@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ImageGridView extends StatelessWidget {
   final List<String> _imagesList;
 
-  ImageGridView(this._imagesList);
+  ImageGridView(List<String> imagesList) : _imagesList = imagesList;
 
   Widget build(BuildContext context) {
     return GridView.builder(
