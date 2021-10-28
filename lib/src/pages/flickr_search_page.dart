@@ -98,19 +98,25 @@ class FlickrSearchPageState extends State<FlickrSearchPage> {
   }
 
   void _onLoading(String inputString) async {
-    setState(() {
-      _searchButtonPress = true;
-    });
-
+    setState(
+      () {
+        _searchButtonPress = true;
+      },
+    );
     List<dynamic> flickrSearchPhotos =
         await FlickrSearchApiCall().searchResultsFunction(inputString);
-
-    setState(() => _searchButtonPress = false);
+    setState(
+      () => _searchButtonPress = false,
+    );
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) =>
-                SearchResultsPage(inputString, flickrSearchPhotos)));
+      context,
+      MaterialPageRoute(
+        builder: (_) => SearchResultsPage(
+          inputString,
+          flickrSearchPhotos,
+        ),
+      ),
+    );
   }
 
   static const _elevatedButtonLoadingHeight = 20.0;

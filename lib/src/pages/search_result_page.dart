@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/image_list.dart';
+import '../models/image_grid_view.dart';
 
 class SearchResultsPage extends StatefulWidget {
   final List _imagesList;

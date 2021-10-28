@@ -22,16 +22,16 @@ class FlickrSearchApiCall {
 
     if (response.statusCode == 200) {
       try {
-        List flickrSearchPhotos = [];
-
+        List<String> flickrSearchPhotosList = [];
         Map<String, dynamic> responseBody = json.decode(response.body);
         List<dynamic> photoList = responseBody['photos']['photo'];
+        photoList.forEach(
+          (element) {
+            flickrSearchPhotosList.add(ImageModel.fromJson(element).makeUrl());
+          },
+        );
 
-        photoList.forEach((element) {
-          flickrSearchPhotos.add(ImageModel.fromJson(element).makeUrl());
-        });
-
-        return flickrSearchPhotos;
+        return flickrSearchPhotosList;
       } catch (e) {
         debugPrint(e);
       }

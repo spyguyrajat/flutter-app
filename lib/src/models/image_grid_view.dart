@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ImageGridView extends StatelessWidget {
-  final List _imagesList;
+  final List<String> _imagesList;
 
   ImageGridView(this._imagesList);
 
