@@ -1,25 +1,28 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_template/src/pages/search_result_page.dart';
-import 'package:http/http.dart';
 
-import '../models/image_model.dart';
+import '../models/assets/flickr_search_api_call.dart';
 import '../theme/app_theme.dart';
 
-class SearchPage extends StatefulWidget {
-  SearchPageState createState() => SearchPageState();
+class FlickrSearchPage extends StatefulWidget {
+  FlickrSearchPageState createState() => FlickrSearchPageState();
 }
 
-class SearchPageState extends State<SearchPage> {
+class FlickrSearchPageState extends State<FlickrSearchPage> {
   bool _searchButtonPress = false;
   final _text = TextEditingController();
 
-  @override
-  Widget build(context) {
-    return _getBody();
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).appBarTitle),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      ),
+      body: _getBody(),
+    );
   }
 
   Widget _getBody() {
@@ -98,29 +101,15 @@ class SearchPageState extends State<SearchPage> {
       _searchButtonPress = true;
     });
 
-    Future searchResultsFunction() async {
-      try {
-        var response = await get(
-          Uri.parse(
-            'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=6b6afbc32887639b60f16f4f0cb3d83a&format=json&text=' +
-                inputString +
-                '&nojsoncallback=1',
-          ),
-        );
-        ImageModel imageModel = ImageModel.fromJson(json.decode(response.body));
-        List _imagesList = imageModel.getList();
+    List<dynamic> flickrSearchPhotos =
+        FlickrSearchApiCall().searchResultsFunction(inputString);
 
-        setState(() => _searchButtonPress = false);
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => SearchResultsPage(inputString, _imagesList)));
-      } catch (errorLog) {
-        print(errorLog);
-      }
-    }
-
-    searchResultsFunction();
+    setState(() => _searchButtonPress = false);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) =>
+                SearchResultsPage(inputString, flickrSearchPhotos)));
   }
 
   static const _elevatedButtonLoadingHeight = 20.0;
