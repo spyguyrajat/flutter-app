@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_template/src/pages/search_result_page.dart';
 
-import '../models/assets/flickr_search_api_call.dart';
+import '../api/flickr_search_api_call.dart';
+import '../constants/app_constants.dart';
 import '../theme/app_theme.dart';
+import 'search_result_page.dart';
 
 class FlickrSearchPage extends StatefulWidget {
   FlickrSearchPageState createState() => FlickrSearchPageState();
@@ -17,7 +18,7 @@ class FlickrSearchPageState extends State<FlickrSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).appBarTitle),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -28,12 +29,12 @@ class FlickrSearchPageState extends State<FlickrSearchPage> {
 
   Widget _getBody() {
     return Container(
-      margin: EdgeInsets.all(20.0),
+      margin: EdgeInsets.all(bodyContainerMargin),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _searchTextField(),
-          SizedBox(height: 20.0),
+          SizedBox(height: bodySizedBoxHeight),
           _searchButton(),
         ],
       ),
@@ -58,8 +59,8 @@ class FlickrSearchPageState extends State<FlickrSearchPage> {
       onPressed: _onPress,
       child: _searchButtonPress
           ? SizedBox(
-              height: _elevatedButtonLoadingHeight,
-              width: _elevatedButtonLoadingWidth,
+              height: elevatedButtonLoadingHeight,
+              width: elevatedButtonLoadingWidth,
               child: CircularProgressIndicator(
                 color: AppTheme.searchButtonLoadingColor,
               ),
@@ -118,7 +119,4 @@ class FlickrSearchPageState extends State<FlickrSearchPage> {
       ),
     );
   }
-
-  static const _elevatedButtonLoadingHeight = 20.0;
-  static const _elevatedButtonLoadingWidth = 20.0;
 }

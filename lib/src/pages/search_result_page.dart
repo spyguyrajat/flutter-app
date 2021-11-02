@@ -17,7 +17,7 @@ class SearchResultsPageState extends State<SearchResultsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Results for: ' + '\"' + widget._inputString + '\"'),
+        title: Text('Results for: "${widget._inputString}"'),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
       body: ImageGridView(widget._imagesList),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-import 'pages/favorites_page.dart';
+import 'pages/flickr_favorites_page.dart';
 import 'pages/flickr_search_page.dart';
 
 class HomePage extends StatefulWidget {
