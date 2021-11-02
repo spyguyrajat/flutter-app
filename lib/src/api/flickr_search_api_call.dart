@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-import '../../app_constants/api_key.dart';
-import '../image_model.dart';
+import '../app_constants/api_key.dart';
+import '../models/image_model.dart';
 
 class FlickrSearchApiCall {
   Future searchResultsFunction(inputString) async {
