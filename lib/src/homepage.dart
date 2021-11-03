@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-import 'pages/flickr_favorites_page.dart';
-import 'pages/flickr_search_page.dart';
+import 'constants/app_constants.dart';
+import 'pages/favorites_page.dart';
+import 'pages/search_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 }
 
 class HomePageState extends State<HomePage> {
-  PersistentTabController _controller;
+  PersistentTabController _navBarController;
 
-  List<Widget> _pages() {
+  List<Widget> _homeScreenPages() {
     return [
       FlickrSearchPage(),
       FavoritesPage(),
     ];
   }
 
-  List<PersistentBottomNavBarItem> _items() {
+  List<PersistentBottomNavBarItem> _navBarItems() {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(Icons.search),
@@ -31,8 +32,8 @@ class HomePageState extends State<HomePage> {
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
           initialRoute: '/',
           routes: {
-            '/search': (context) => FlickrSearchPage(),
-            '/favorites': (context) => FavoritesPage(),
+            searchRoute: (context) => FlickrSearchPage(),
+            favoritesRoute: (context) => FavoritesPage(),
           },
         ),
       ),
@@ -46,8 +47,8 @@ class HomePageState extends State<HomePage> {
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
           initialRoute: '/',
           routes: {
-            '/search': (context) => FlickrSearchPage(),
-            '/favorites': (context) => FavoritesPage(),
+            searchRoute: (context) => FlickrSearchPage(),
+            favoritesRoute: (context) => FavoritesPage(),
           },
         ),
       ),
@@ -57,14 +58,15 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _pages(),
-      items: _items(),
-      navBarStyle: NavBarStyle.style8,
-      backgroundColor:
-          Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-    ));
+      body: PersistentTabView(
+        context,
+        controller: _navBarController,
+        screens: _homeScreenPages(),
+        items: _navBarItems(),
+        navBarStyle: NavBarStyle.style8,
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+      ),
+    );
   }
 }
