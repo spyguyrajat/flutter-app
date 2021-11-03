@@ -8,11 +8,11 @@ import '../constants/app_constants.dart';
 import '../theme/app_theme.dart';
 import 'search_result_page.dart';
 
-class FlickrSearchPage extends StatefulWidget {
-  FlickrSearchPageState createState() => FlickrSearchPageState();
+class SearchPage extends StatefulWidget {
+  SearchPageState createState() => SearchPageState();
 }
 
-class FlickrSearchPageState extends State<FlickrSearchPage> {
+class SearchPageState extends State<SearchPage> {
   bool _searchButtonPress = false;
   final _text = TextEditingController();
 

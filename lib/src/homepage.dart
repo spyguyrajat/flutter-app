@@ -11,11 +11,9 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  PersistentTabController _navBarController;
-
   List<Widget> _homeScreenPages() {
     return [
-      FlickrSearchPage(),
+      SearchPage(),
       FavoritesPage(),
     ];
   }
@@ -32,7 +30,7 @@ class HomePageState extends State<HomePage> {
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
           initialRoute: '/',
           routes: {
-            searchRoute: (context) => FlickrSearchPage(),
+            searchRoute: (context) => SearchPage(),
             favoritesRoute: (context) => FavoritesPage(),
           },
         ),
@@ -47,7 +45,7 @@ class HomePageState extends State<HomePage> {
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
           initialRoute: '/',
           routes: {
-            searchRoute: (context) => FlickrSearchPage(),
+            searchRoute: (context) => SearchPage(),
             favoritesRoute: (context) => FavoritesPage(),
           },
         ),
@@ -60,7 +58,6 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       body: PersistentTabView(
         context,
-        controller: _navBarController,
         screens: _homeScreenPages(),
         items: _navBarItems(),
         navBarStyle: NavBarStyle.style8,
