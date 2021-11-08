@@ -6,5 +6,6 @@
   "searchTextFieldTitle": "Search Flickr…",
   "searchValidationError": "Please enter 3 or more characters!",
   "okButtonText": "OK",
-  "emptyStringError": "No Text Entered"
+  "emptyStringError": "No Text Entered",
+  "searchResultsTopBarText": "Results for: "
 }

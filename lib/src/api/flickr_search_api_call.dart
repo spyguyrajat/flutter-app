@@ -8,23 +8,24 @@ import '../models/image_model.dart';
 
 class FlickrSearchApiCall {
   Future searchResultsFunction(inputString) async {
-    var url =
+    final String url =
         'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=' +
             api_key +
             '&format=json&text=' +
             inputString +
             '&nojsoncallback=1';
-    var response = await get(
+    final response = await get(
       Uri.parse(
         url,
       ),
     );
 
     if (response.statusCode == 200) {
+      List<String> flickrSearchPhotosList = [];
       try {
-        List<String> flickrSearchPhotosList = [];
         Map<String, dynamic> responseBody = json.decode(response.body);
-        List<dynamic> photoList = responseBody['photos']['photo'];
+        List<Map<String, dynamic>> photoList =
+            responseBody['photos']['photo'].cast<Map<String, dynamic>>();
         photoList.forEach(
           (element) {
             flickrSearchPhotosList.add(ImageModel.fromJson(element).makeUrl());
@@ -36,15 +37,35 @@ class FlickrSearchApiCall {
         debugPrint(e);
       }
     } else if (response.statusCode == 400) {
-      throw Exception('Invalid Request');
+      return invalidRequestException();
     } else if (response.statusCode == 404) {
-      throw Exception('Error 404! Not Found');
+      return error404Exception();
     } else if (response.statusCode == 500) {
-      throw Exception('Internal Server Error');
+      return internalServerErrorException();
     } else if (response.statusCode == 504) {
-      throw Exception('Gateway Timed Out! Please Try again.');
+      return gatewayTimeOutErrorException();
     } else {
-      throw Exception('Something went Wrong!');
+      otherException();
     }
   }
+}
+
+Future invalidRequestException() {
+  return Future.error('Invalid Request');
+}
+
+Future error404Exception() {
+  return Future.error('Error 404! Not Found');
+}
+
+Future internalServerErrorException() {
+  return Future.error('Internal Server Error');
+}
+
+Future gatewayTimeOutErrorException() {
+  return Future.error('Gateway Timed Out! Please Try again.');
+}
+
+Future otherException() {
+  return Future.error('Something went Wrong!');
 }

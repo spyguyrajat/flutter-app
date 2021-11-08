@@ -18,6 +18,12 @@ class ImageModel {
   }
 
   String makeUrl() {
-    return 'https://live.staticflickr.com/$server/${id}_$secret.jpg';
+    return 'https://live.staticflickr.com/' +
+        server +
+        '/' +
+        id +
+        '_' +
+        secret +
+        '_q.jpg';
   }
 }

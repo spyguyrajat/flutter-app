@@ -18,6 +18,7 @@ class ImageGridView extends StatelessWidget {
 
   Widget buildImage(imageUrl) {
     return Container(
+      padding: EdgeInsets.only(left: 5.0, top: 5.0, right: 5.0),
       child: Image.network(imageUrl),
     );
   }

@@ -79,6 +79,38 @@ class SearchPageState extends State<SearchPage> {
     }
   }
 
+  void _onLoading(String inputString) async {
+    setState(
+      () {
+        _searchButtonPress = true;
+      },
+    );
+
+    List<dynamic> flickrSearchPhotos = await FlickrSearchApiCall()
+        .searchResultsFunction(inputString)
+        .catchError(
+      (error) {
+        _showErrorDialog(error);
+      },
+    );
+
+    setState(
+      () => _searchButtonPress = false,
+    );
+
+    if (flickrSearchPhotos != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => SearchResultsPage(
+            inputString,
+            flickrSearchPhotos,
+          ),
+        ),
+      );
+    }
+  }
+
   Future _showErrorDialog(errorMessage) async {
     return showDialog(
       context: context,
@@ -95,28 +127,6 @@ class SearchPageState extends State<SearchPage> {
           ],
         );
       },
-    );
-  }
-
-  void _onLoading(String inputString) async {
-    setState(
-      () {
-        _searchButtonPress = true;
-      },
-    );
-    List<dynamic> flickrSearchPhotos =
-        await FlickrSearchApiCall().searchResultsFunction(inputString);
-    setState(
-      () => _searchButtonPress = false,
-    );
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => SearchResultsPage(
-          inputString,
-          flickrSearchPhotos,
-        ),
-      ),
     );
   }
 }
