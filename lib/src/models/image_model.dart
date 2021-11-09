@@ -17,7 +17,7 @@ class ImageModel {
     );
   }
 
-  String makeUrl() {
+  String getUrl() {
     return 'https://live.staticflickr.com/' +
         server +
         '/' +

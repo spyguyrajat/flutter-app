@@ -8,8 +8,12 @@ class ImageGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       itemCount: _imagesList.length,
-      gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisSpacing: 6.0,
+        crossAxisSpacing: 6.0,
+        childAspectRatio: 1.0,
+      ),
       itemBuilder: (context, int index) {
         return buildImage(_imagesList[index]);
       },
@@ -18,7 +22,6 @@ class ImageGridView extends StatelessWidget {
 
   Widget buildImage(imageUrl) {
     return Container(
-      padding: EdgeInsets.only(left: 5.0, top: 5.0, right: 5.0),
       child: Image.network(imageUrl),
     );
   }

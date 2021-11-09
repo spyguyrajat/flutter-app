@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -8,17 +9,30 @@ import '../models/image_model.dart';
 
 class FlickrSearchApiCall {
   Future searchResultsFunction(inputString) async {
-    final String url =
-        'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=' +
-            api_key +
-            '&format=json&text=' +
-            inputString +
-            '&nojsoncallback=1';
-    final response = await get(
-      Uri.parse(
-        url,
-      ),
-    );
+    String _url;
+    Response response;
+    try {
+      _url =
+          'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=' +
+              api_key +
+              '&format=json&text=' +
+              inputString +
+              '&nojsoncallback=1';
+    } catch (e) {
+      debugPrint(e);
+    }
+
+    try {
+      response = await get(
+        Uri.parse(
+          _url,
+        ),
+      );
+    } on SocketException {
+      socketException();
+    } catch (e) {
+      debugPrint(e);
+    }
 
     if (response.statusCode == 200) {
       List<String> flickrSearchPhotosList = [];
@@ -28,7 +42,7 @@ class FlickrSearchApiCall {
             responseBody['photos']['photo'].cast<Map<String, dynamic>>();
         photoList.forEach(
           (element) {
-            flickrSearchPhotosList.add(ImageModel.fromJson(element).makeUrl());
+            flickrSearchPhotosList.add(ImageModel.fromJson(element).getUrl());
           },
         );
 
@@ -37,35 +51,39 @@ class FlickrSearchApiCall {
         debugPrint(e);
       }
     } else if (response.statusCode == 400) {
-      return invalidRequestException();
+      invalidRequestException();
     } else if (response.statusCode == 404) {
-      return error404Exception();
+      error404Exception();
     } else if (response.statusCode == 500) {
-      return internalServerErrorException();
+      internalServerErrorException();
     } else if (response.statusCode == 504) {
-      return gatewayTimeOutErrorException();
+      gatewayTimeOutErrorException();
     } else {
       otherException();
     }
   }
 }
 
-Future invalidRequestException() {
-  return Future.error('Invalid Request');
+socketException() {
+  throw ('Unable to connect to Internet');
 }
 
-Future error404Exception() {
-  return Future.error('Error 404! Not Found');
+invalidRequestException() {
+  throw ('Invalid Request');
 }
 
-Future internalServerErrorException() {
-  return Future.error('Internal Server Error');
+error404Exception() {
+  throw ('Error 404! Not Found');
 }
 
-Future gatewayTimeOutErrorException() {
-  return Future.error('Gateway Timed Out! Please Try again.');
+internalServerErrorException() {
+  throw ('Internal Server Error');
 }
 
-Future otherException() {
-  return Future.error('Something went Wrong!');
+gatewayTimeOutErrorException() {
+  throw ('Gateway Timed Out! Please Try again.');
+}
+
+otherException() {
+  throw ('Something went Wrong!');
 }
