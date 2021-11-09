@@ -24,6 +24,6 @@ class ImageModel {
         id +
         '_' +
         secret +
-        '_q.jpg';
+        '.jpg';
   }
 }

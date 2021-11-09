@@ -22,7 +22,10 @@ class ImageGridView extends StatelessWidget {
 
   Widget buildImage(imageUrl) {
     return Container(
-      child: Image.network(imageUrl),
+      child: Image.network(
+        imageUrl,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }
