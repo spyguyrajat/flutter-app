@@ -17,13 +17,13 @@ class ImageModel {
     );
   }
 
-  String makeUrl() {
+  String getUrl() {
     return 'https://live.staticflickr.com/' +
         server +
         '/' +
         id +
         '_' +
         secret +
-        '_q.jpg';
+        '.jpg';
   }
 }

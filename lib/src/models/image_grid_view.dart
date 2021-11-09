@@ -24,8 +24,12 @@ class ImageGridView extends StatelessWidget {
   Widget buildImage(imageUrl) {
     return Container(
       child: CachedNetworkImage(
-        placeholder: (context, url) => Image.asset('assets/placeholder.jpeg'),
+        placeholder: (context, url) => Image.asset(
+          'assets/placeholder.jpg',
+          fit: BoxFit.contain,
+        ),
         imageUrl: imageUrl,
+        fit: BoxFit.cover,
         width: 133.0,
         height: 133.0,
       ),
