@@ -10,7 +10,8 @@ import '../models/image_model.dart';
 class FlickrSearchApiCall {
   Future searchResultsFunction(inputString) async {
     String _url;
-    Response response;
+    Response _response;
+    List<String> _flickrSearchPhotosList = [];
     try {
       _url =
           'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=' +
@@ -23,67 +24,68 @@ class FlickrSearchApiCall {
     }
 
     try {
-      response = await get(
+      _response = await get(
         Uri.parse(
           _url,
         ),
       );
     } on SocketException {
-      socketException();
+      _socketException();
     } catch (e) {
       debugPrint(e);
     }
 
-    if (response.statusCode == 200) {
-      List<String> flickrSearchPhotosList = [];
+    if (_response.statusCode == 200) {
       try {
-        Map<String, dynamic> responseBody = json.decode(response.body);
-        List<Map<String, dynamic>> photoList =
-            responseBody['photos']['photo'].cast<Map<String, dynamic>>();
-        photoList.forEach(
+        Map<String, dynamic> _responseBody = json.decode(_response.body);
+        List<Map<String, dynamic>> _photoList =
+            _responseBody['photos']['photo'].cast<Map<String, dynamic>>();
+        _photoList.forEach(
           (element) {
-            flickrSearchPhotosList.add(ImageModel.fromJson(element).getUrl());
+            _flickrSearchPhotosList.add(
+              ImageModel.fromJson(element).getUrl(),
+            );
           },
         );
 
-        return flickrSearchPhotosList;
+        return _flickrSearchPhotosList;
       } catch (e) {
         debugPrint(e);
       }
-    } else if (response.statusCode == 400) {
-      invalidRequestException();
-    } else if (response.statusCode == 404) {
-      error404Exception();
-    } else if (response.statusCode == 500) {
-      internalServerErrorException();
-    } else if (response.statusCode == 504) {
-      gatewayTimeOutErrorException();
+    } else if (_response.statusCode == 400) {
+      _invalidRequestException();
+    } else if (_response.statusCode == 404) {
+      _error404Exception();
+    } else if (_response.statusCode == 500) {
+      _internalServerErrorException();
+    } else if (_response.statusCode == 504) {
+      _gatewayTimeOutErrorException();
     } else {
-      otherException();
+      _otherException();
     }
   }
 }
 
-socketException() {
+_socketException() {
   throw ('Unable to connect to Internet');
 }
 
-invalidRequestException() {
+_invalidRequestException() {
   throw ('Invalid Request');
 }
 
-error404Exception() {
+_error404Exception() {
   throw ('Error 404! Not Found');
 }
 
-internalServerErrorException() {
+_internalServerErrorException() {
   throw ('Internal Server Error');
 }
 
-gatewayTimeOutErrorException() {
+_gatewayTimeOutErrorException() {
   throw ('Gateway Timed Out! Please Try again.');
 }
 
-otherException() {
+_otherException() {
   throw ('Something went Wrong!');
 }
