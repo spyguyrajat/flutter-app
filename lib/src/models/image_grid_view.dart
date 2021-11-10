@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../pages/display_image_page.dart';
+
 class ImageGridView extends StatelessWidget {
   final List<String> _imagesList;
 
@@ -16,22 +18,28 @@ class ImageGridView extends StatelessWidget {
         childAspectRatio: 1.0,
       ),
       itemBuilder: (context, int index) {
-        return buildImage(_imagesList[index]);
+        return buildImage(context, _imagesList[index]);
       },
     );
   }
 
-  Widget buildImage(imageUrl) {
-    return Container(
-      child: CachedNetworkImage(
-        placeholder: (context, url) => Image.asset(
-          'assets/placeholder.jpg',
-          fit: BoxFit.contain,
+  Widget buildImage(context, imageUrl) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => DisplayImagePage(imageUrl)));
+      },
+      child: Container(
+        child: CachedNetworkImage(
+          placeholder: (context, url) => Image.asset(
+            'assets/placeholder.jpg',
+            fit: BoxFit.contain,
+          ),
+          imageUrl: imageUrl,
+          fit: BoxFit.cover,
+          width: 133.0,
+          height: 133.0,
         ),
-        imageUrl: imageUrl,
-        fit: BoxFit.cover,
-        width: 133.0,
-        height: 133.0,
       ),
     );
   }
