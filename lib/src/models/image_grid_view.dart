@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import '../pages/display_image_page.dart';
 
 class ImageGridView extends StatelessWidget {
-  final List<String> _imagesList;
+  final List<String> _imageUrlList;
+  final List<String> _imageTitleList;
 
-  ImageGridView(List<String> imagesList) : _imagesList = imagesList;
+  ImageGridView(List<String> imagesList, List<String> imageTitleList)
+      : _imageUrlList = imagesList,
+        _imageTitleList = imageTitleList;
 
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: _imagesList.length,
+      itemCount: _imageUrlList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         mainAxisSpacing: 6.0,
@@ -18,17 +21,14 @@ class ImageGridView extends StatelessWidget {
         childAspectRatio: 1.0,
       ),
       itemBuilder: (context, int index) {
-        return buildImage(context, _imagesList[index]);
+        return buildImage(
+            context, _imageUrlList[index], _imageTitleList[index]);
       },
     );
   }
 
-  Widget buildImage(context, imageUrl) {
+  Widget buildImage(context, imageUrl, imageTitle) {
     return InkWell(
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => DisplayImagePage(imageUrl)));
-      },
       child: Container(
         child: CachedNetworkImage(
           placeholder: (context, url) => Image.asset(
@@ -41,6 +41,12 @@ class ImageGridView extends StatelessWidget {
           height: 133.0,
         ),
       ),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => DisplayImagePage(imageUrl, imageTitle)));
+      },
     );
   }
 }

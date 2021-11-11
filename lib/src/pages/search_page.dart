@@ -94,6 +94,16 @@ class SearchPageState extends State<SearchPage> {
       },
     );
 
+    List<String> _photoUrlList = [];
+    List<String> _photoTitleList = [];
+    flickrSearchPhotos.forEach((element) {
+      _photoUrlList.add(element[0]);
+      _photoTitleList.add(element[1]);
+    });
+
+    print(_photoUrlList);
+    print(_photoTitleList);
+
     setState(
       () => _searchButtonPress = false,
     );
@@ -104,7 +114,8 @@ class SearchPageState extends State<SearchPage> {
         MaterialPageRoute(
           builder: (_) => SearchResultsPage(
             inputString,
-            flickrSearchPhotos,
+            _photoUrlList,
+            _photoTitleList,
           ),
         ),
       );

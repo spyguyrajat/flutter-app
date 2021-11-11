@@ -11,7 +11,7 @@ class FlickrSearchApiCall {
   Future searchResultsFunction(inputString) async {
     String _url;
     Response _response;
-    List<String> _flickrSearchPhotosList = [];
+    List<List> _flickrSearchPhotosList = [];
     try {
       _url =
           'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=' +
@@ -38,15 +38,17 @@ class FlickrSearchApiCall {
     if (_response.statusCode == 200) {
       try {
         Map<String, dynamic> _responseBody = json.decode(_response.body);
-        List<Map<String, dynamic>> _photoList =
+        List<Map<String, dynamic>> photoList =
             _responseBody['photos']['photo'].cast<Map<String, dynamic>>();
-        _photoList.forEach(
+        photoList.forEach(
           (element) {
-            _flickrSearchPhotosList.add(
+            _flickrSearchPhotosList.add([
               ImageModel.fromJson(element).getUrl(),
-            );
+              ImageModel.fromJson(element).getTitle()
+            ]);
           },
         );
+        print(_flickrSearchPhotosList);
 
         return _flickrSearchPhotosList;
       } catch (e) {
