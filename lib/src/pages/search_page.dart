@@ -101,9 +101,6 @@ class SearchPageState extends State<SearchPage> {
       _photoTitleList.add(element[1]);
     });
 
-    print(_photoUrlList);
-    print(_photoTitleList);
-
     setState(
       () => _searchButtonPress = false,
     );
