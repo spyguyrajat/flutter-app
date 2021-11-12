@@ -1,28 +1,23 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import '../constants/api_key.dart';
 import '../models/image_model.dart';
+import 'exception_class.dart';
 
 class FlickrSearchApiCall {
   Future searchResultsFunction(inputString) async {
     String _url;
     Response _response;
     List<String> _flickrSearchPhotosList = [];
-    try {
-      _url =
-          'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=' +
-              api_key +
-              '&format=json&text=' +
-              inputString +
-              '&nojsoncallback=1';
-    } catch (e) {
-      debugPrint(e);
-    }
-
+    _url =
+        'https://www.flickr.com/services/rest?method=flickr.photos.search&api_key=' +
+            api_key +
+            '&format=json&text=' +
+            inputString +
+            '&nojsoncallback=1';
     try {
       _response = await get(
         Uri.parse(
@@ -30,62 +25,33 @@ class FlickrSearchApiCall {
         ),
       );
     } on SocketException {
-      _socketException();
-    } catch (e) {
-      debugPrint(e);
+      throw HttpRequestException('Error: Unable to make HTTP request');
     }
 
     if (_response.statusCode == 200) {
-      try {
-        Map<String, dynamic> _responseBody = json.decode(_response.body);
-        List<Map<String, dynamic>> _photoList =
-            _responseBody['photos']['photo'].cast<Map<String, dynamic>>();
-        _photoList.forEach(
-          (element) {
-            _flickrSearchPhotosList.add(
-              ImageModel.fromJson(element).getUrl(),
-            );
-          },
-        );
+      Map<String, dynamic> _responseBody = json.decode(_response.body);
+      List<Map<String, dynamic>> _photoList =
+          _responseBody['photos']['photo'].cast<Map<String, dynamic>>();
+      _photoList.forEach(
+        (element) {
+          _flickrSearchPhotosList.add(
+            ImageModel.fromJson(element).getUrl(),
+          );
+        },
+      );
 
-        return _flickrSearchPhotosList;
-      } catch (e) {
-        debugPrint(e);
-      }
+      return _flickrSearchPhotosList;
     } else if (_response.statusCode == 400) {
-      _invalidRequestException();
+      throw InvalidRequestException('Error: Invalid Request');
     } else if (_response.statusCode == 404) {
-      _error404Exception();
+      throw PageNotFoundException('Error 404: Page Not Found');
     } else if (_response.statusCode == 500) {
-      _internalServerErrorException();
+      throw InternalServerErrorException('Error: Internal Server Error');
     } else if (_response.statusCode == 504) {
-      _gatewayTimeOutErrorException();
+      throw GatewayTimeoutException('Error: Gateway Timed Out');
     } else {
-      _otherException();
+      throw UnknownException(
+          'Error ${_response.statusCode}: Something went wrong!');
     }
   }
-}
-
-_socketException() {
-  throw ('Unable to connect to Internet');
-}
-
-_invalidRequestException() {
-  throw ('Invalid Request');
-}
-
-_error404Exception() {
-  throw ('Error 404! Not Found');
-}
-
-_internalServerErrorException() {
-  throw ('Internal Server Error');
-}
-
-_gatewayTimeOutErrorException() {
-  throw ('Gateway Timed Out! Please Try again.');
-}
-
-_otherException() {
-  throw ('Something went Wrong!');
 }

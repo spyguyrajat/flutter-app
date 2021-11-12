@@ -19,7 +19,7 @@ class SearchResultsPageState extends State<SearchResultsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).searchResultsTopBarText +
-            widget._inputString),
+            '“${widget._inputString}”'),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
       body: ImageGridView(widget._imagesList),
