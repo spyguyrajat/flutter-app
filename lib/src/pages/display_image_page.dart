@@ -1,5 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_template/src/constants/app_constants.dart';
+
+import 'favorites_page.dart';
 
 class DisplayImagePage extends StatefulWidget {
   final String _imageUrl;
@@ -11,12 +15,10 @@ class DisplayImagePage extends StatefulWidget {
 }
 
 class DisplayImagePageState extends State<DisplayImagePage> {
-  bool alreadySaved = false;
   Widget build(context) {
     return Scaffold(
       appBar: AppBar(
-        // APP LOCALIZATION NEEDED HERE
-        title: Text('Search Result'),
+        title: Text(AppLocalizations.of(context).displayImagePageTitle),
       ),
       body: ListView(
         padding: EdgeInsets.only(top: 12.0, left: 6.0, right: 6.0),
@@ -25,7 +27,7 @@ class DisplayImagePageState extends State<DisplayImagePage> {
             borderRadius: BorderRadius.circular(8.0),
             child: CachedNetworkImage(
               placeholder: (context, url) => Image.asset(
-                'assets/placeholder.jpg',
+                imagePlaceholder,
                 fit: BoxFit.contain,
               ),
               imageUrl: widget._imageUrl,
@@ -36,24 +38,30 @@ class DisplayImagePageState extends State<DisplayImagePage> {
           ),
           SizedBox(height: 12.0),
           Center(
-            child: Text(
-              widget._imageTitle,
-            ),
+            child: Text(widget._imageTitle),
           ),
           SizedBox(height: 33.0),
           IconButton(
-            icon: Icon(
-                alreadySaved ? Icons.favorite : Icons.favorite_border_sharp),
+            icon: Icon(favoritesUrlList.contains(widget._imageUrl)
+                ? Icons.favorite
+                : Icons.favorite_border_sharp),
             color: Color.fromRGBO(0, 213, 127, 1),
             iconSize: 126.0,
             onPressed: () {
-              setState(() {
-                if (alreadySaved == false) {
-                  alreadySaved = true;
-                } else {
-                  alreadySaved = false;
-                }
-              });
+              setState(
+                () {
+                  isFavorite = favoritesUrlList.contains(widget._imageUrl);
+                  if (isFavorite) {
+                    favoritesUrlList.remove(widget._imageUrl);
+                    favoritesTitleList.remove(widget._imageTitle);
+                    isFavorite = false;
+                  } else {
+                    favoritesUrlList.add(widget._imageUrl);
+                    favoritesTitleList.add(widget._imageTitle);
+                    isFavorite = true;
+                  }
+                },
+              );
             },
           ),
         ],

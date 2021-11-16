@@ -7,5 +7,7 @@
   "searchValidationError": "Veuillez saisir 3 caractères ou plus !",
   "okButtonText": "d'accord",
   "emptyStringError": "Aucun texte saisi",
-  "searchResultsTopBarText": "Résultats pour: "
+  "searchResultsTopBarText": "Résultats pour: ,",
+  "displayImagePageTitle": "Résultats de recherche",
+  "favoritesPageTitle": "favoris"
 }

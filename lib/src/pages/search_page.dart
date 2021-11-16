@@ -90,7 +90,7 @@ class SearchPageState extends State<SearchPage> {
         .searchResultsFunction(inputString)
         .catchError(
       (error) {
-        _showErrorDialog(error);
+        _showErrorDialog(error.toString());
       },
     );
 
