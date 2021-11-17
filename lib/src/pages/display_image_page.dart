@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_template/src/constants/app_constants.dart';
+import 'package:image_downloader/image_downloader.dart';
 
 import 'favorites_page.dart';
 
@@ -48,20 +49,25 @@ class DisplayImagePageState extends State<DisplayImagePage> {
             color: Color.fromRGBO(0, 213, 127, 1),
             iconSize: 126.0,
             onPressed: () {
-              setState(
-                () {
-                  isFavorite = favoritesUrlList.contains(widget._imageUrl);
-                  if (isFavorite) {
-                    favoritesUrlList.remove(widget._imageUrl);
-                    favoritesTitleList.remove(widget._imageTitle);
+              isFavorite = favoritesUrlList.contains(widget._imageUrl);
+              if (isFavorite) {
+                favoritesUrlList.remove(widget._imageUrl);
+                favoritesTitleList.remove(widget._imageTitle);
+                setState(
+                  () {
                     isFavorite = false;
-                  } else {
-                    favoritesUrlList.add(widget._imageUrl);
-                    favoritesTitleList.add(widget._imageTitle);
+                  },
+                );
+              } else {
+                favoritesUrlList.add(widget._imageUrl);
+                favoritesTitleList.add(widget._imageTitle);
+                ImageDownloader.downloadImage(widget._imageUrl);
+                setState(
+                  () {
                     isFavorite = true;
-                  }
-                },
-              );
+                  },
+                );
+              }
             },
           ),
         ],
