@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_template/src/constants/app_constants.dart';
 
 class ImageGridView extends StatelessWidget {
   final List<String> _imagesList;
@@ -22,9 +24,15 @@ class ImageGridView extends StatelessWidget {
 
   Widget buildImage(imageUrl) {
     return Container(
-      child: Image.network(
-        imageUrl,
+      child: CachedNetworkImage(
+        placeholder: (context, url) => Image.asset(
+          imagePlaceholder,
+          fit: BoxFit.contain,
+        ),
+        imageUrl: imageUrl,
         fit: BoxFit.cover,
+        width: 133.0,
+        height: 133.0,
       ),
     );
   }
