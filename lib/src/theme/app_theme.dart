@@ -70,4 +70,5 @@ class AppTheme {
   );
 
   static const Color searchButtonLoadingColor = Colors.white;
+  static const Color FavoritesButtonColor = Color.fromRGBO(0, 213, 127, 1);
 }

@@ -44,9 +44,11 @@ class ImageGridView extends StatelessWidget {
       ),
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => DisplayImagePage(imageUrl, imageTitle)));
+          context,
+          MaterialPageRoute(
+            builder: (_) => DisplayImagePage(imageUrl, imageTitle),
+          ),
+        );
       },
     );
   }

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_template/src/constants/app_constants.dart';
+import 'package:flutter_template/src/theme/app_theme.dart';
 import 'package:image_downloader/image_downloader.dart';
 
 import 'favorites_page.dart';
@@ -22,10 +23,13 @@ class DisplayImagePageState extends State<DisplayImagePage> {
         title: Text(AppLocalizations.of(context).displayImagePageTitle),
       ),
       body: ListView(
-        padding: EdgeInsets.only(top: 12.0, left: 6.0, right: 6.0),
+        padding: EdgeInsets.only(
+            top: displayImagePagePaddingTop,
+            left: displayImagePagePaddingLeft,
+            right: displayImagePagePaddingRight),
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(imageBorderRadius),
             child: CachedNetworkImage(
               placeholder: (context, url) => Image.asset(
                 imagePlaceholder,
@@ -33,21 +37,21 @@ class DisplayImagePageState extends State<DisplayImagePage> {
               ),
               imageUrl: widget._imageUrl,
               fit: BoxFit.fill,
-              width: 400.0,
-              height: 400.0,
+              width: displayImageWidth,
+              height: displayImageHeight,
             ),
           ),
-          SizedBox(height: 12.0),
+          SizedBox(height: sizedBoxHeightBetweenImageAndTitle),
           Center(
             child: Text(widget._imageTitle),
           ),
-          SizedBox(height: 33.0),
+          SizedBox(height: sizedBoxHeightBetweenTitleAndFavorite),
           IconButton(
             icon: Icon(favoritesUrlList.contains(widget._imageUrl)
                 ? Icons.favorite
                 : Icons.favorite_border_sharp),
-            color: Color.fromRGBO(0, 213, 127, 1),
-            iconSize: 126.0,
+            color: AppTheme.FavoritesButtonColor,
+            iconSize: favoritesButtonIconSize,
             onPressed: () {
               isFavorite = favoritesUrlList.contains(widget._imageUrl);
               if (isFavorite) {
