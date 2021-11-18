@@ -16,10 +16,10 @@ class ImageGridView extends StatelessWidget {
     return GridView.builder(
       itemCount: _imageUrlList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        mainAxisSpacing: 6.0,
-        crossAxisSpacing: 6.0,
-        childAspectRatio: 1.0,
+        crossAxisCount: gridViewCrossAxisCount,
+        mainAxisSpacing: gridViewMainAxisSpacing,
+        crossAxisSpacing: gridViewCrossAxisSpacing,
+        childAspectRatio: gridViewChildAspectRatio,
       ),
       itemBuilder: (context, int index) {
         return buildImage(
@@ -38,8 +38,8 @@ class ImageGridView extends StatelessWidget {
           ),
           imageUrl: imageUrl,
           fit: BoxFit.cover,
-          width: 133.0,
-          height: 133.0,
+          width: gridViewImageWidth,
+          height: gridViewImageHeight,
         ),
       ),
       onTap: () {

@@ -11,7 +11,9 @@ class DisplayImagePage extends StatefulWidget {
   final String _imageUrl;
   final String _imageTitle;
 
-  DisplayImagePage(this._imageUrl, this._imageTitle);
+  DisplayImagePage(String imageUrl, String imageTitle)
+      : _imageUrl = imageUrl,
+        _imageTitle = imageTitle;
 
   DisplayImagePageState createState() => DisplayImagePageState();
 }

@@ -49,10 +49,10 @@ class FavoritesList extends StatelessWidget {
     return GridView.builder(
       itemCount: _favoritesUrlList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        mainAxisSpacing: 6.0,
-        crossAxisSpacing: 6.0,
-        childAspectRatio: 1.0,
+        crossAxisCount: gridViewCrossAxisCount,
+        mainAxisSpacing: gridViewMainAxisSpacing,
+        crossAxisSpacing: gridViewCrossAxisSpacing,
+        childAspectRatio: gridViewChildAspectRatio,
       ),
       itemBuilder: (context, int index) {
         return favoritesImage(
@@ -71,8 +71,8 @@ class FavoritesList extends StatelessWidget {
           ),
           imageUrl: imageUrl,
           fit: BoxFit.cover,
-          width: 133.0,
-          height: 133.0,
+          width: gridViewImageWidth,
+          height: gridViewImageHeight,
         ),
       ),
       onTap: () {

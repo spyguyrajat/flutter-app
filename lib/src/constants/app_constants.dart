@@ -15,3 +15,10 @@ const double displayImageHeight = 400.0;
 const double sizedBoxHeightBetweenImageAndTitle = 12.0;
 const double sizedBoxHeightBetweenTitleAndFavorite = 33.0;
 const double favoritesButtonIconSize = 126.0;
+
+const double gridViewImageWidth = 133.0;
+const double gridViewImageHeight = 133.0;
+const int gridViewCrossAxisCount = 3;
+const double gridViewMainAxisSpacing = 6.0;
+const double gridViewCrossAxisSpacing = 6.0;
+const double gridViewChildAspectRatio = 1.0;
