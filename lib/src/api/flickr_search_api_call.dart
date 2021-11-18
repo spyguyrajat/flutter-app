@@ -25,7 +25,7 @@ class FlickrSearchApiCall {
         ),
       );
     } on SocketException {
-      throw HttpRequestException('Error: No Internet Connection');
+      throw HttpRequestException('Error: Unable to make HTTP request');
     }
 
     if (_response.statusCode == 200) {
