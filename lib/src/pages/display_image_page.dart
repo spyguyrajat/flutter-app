@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_template/src/constants/app_constants.dart';
 import 'package:flutter_template/src/theme/app_theme.dart';
-import 'package:image_downloader/image_downloader.dart';
 
 import 'favorites_page.dart';
 
@@ -67,7 +66,7 @@ class DisplayImagePageState extends State<DisplayImagePage> {
               } else {
                 favoritesUrlList.add(widget._imageUrl);
                 favoritesTitleList.add(widget._imageTitle);
-                ImageDownloader.downloadImage(widget._imageUrl);
+                // ImageDownloader.downloadImage(widget._imageUrl);
                 setState(
                   () {
                     isFavorite = true;
