@@ -3,7 +3,7 @@
 This app uses Flickr API to search for images and display the results.  
 You can also save your favourite images.
 
-![Enter Text](https://user-images.githubusercontent.com/30191973/183275260-f8d24d3e-cd81-47ec-8866-4b086f0a22d1.png)
+![Enter Text](https://user-images.githubusercontent.com/30191973/183275260-f8d24d3e-cd81-47ec-8866-4b086f0a22d1.png = 250x250)
 ![Loading](https://user-images.githubusercontent.com/30191973/183275262-87153fd0-bdaf-4741-8d69-56cb4d8d4a92.png)
 ![Search Results](https://user-images.githubusercontent.com/30191973/183275266-c66935ec-9710-439f-ac26-9b2d0ae10eaa.png)
 ![Default](https://user-images.githubusercontent.com/30191973/183275272-546d5147-9f3f-4df1-8476-4c27cd8f7d37.png)
